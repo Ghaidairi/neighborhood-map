@@ -7,21 +7,34 @@
   <title>My Google Map</title>
   <style>
     #map{
-      height: 95%;
-      width: 80%;
-      position: relative;
-      overflow: hidden;
+      bottom:0px;
+      height: 100%;
+      left: 362px;
+      position: absolute;
+      right: 0px;
     }
     html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
+        height: 100%;
+        position: relative;
     }
     div {
       display: block;
     }
     nav {
-
+        background: #fff;
+        border: 1px solid #999;
+        border-radius: 3px;
+        height: 100%;
+        line-height: 35px;
+        padding: 10px 10px 30px 10px;
+        text-align: left;
+        width: 340px;
+    }
+    hr {
+      background: #D0D7D9;
+      height: 1px;
+      margin: 20px 0 20px 0;
+      border: none;
     }
     h1 {
       padding: .75rem 1.25rem;
@@ -54,6 +67,10 @@
       background-color: #fff;
       border: 1px solid rgba(0,0,0,.125);
     }
+    #hide-listings,
+    #show-listings {
+      width: 50px;
+    }
   </style>
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
   <script src="http://knockoutjs.com/downloads/knockout-3.4.2.js"></script>
@@ -76,6 +93,10 @@
   <div class="nav">
     <h1>Almazrooe District</h1>
     <input type="text" id="search" placeholder="Search . . .">
+
+    <input id="show-listings" type="button" value="Show Listings">
+    <input id="hide-listings" type="button" value="Hide Listings">
+    <hr>
     <ul data-role="listview" id="locations">
       <li class="location-item">Panda</li>
       <li class="location-item">Extra</li>
@@ -88,9 +109,17 @@
   </div>
   <div id="map"></div>
   <script>
-
-    var markers = [];
-
+    var map;
+    // Array of markers
+    var markers = [
+      { coords:{lat:25.3431103,lng:49.6135413}, content:'<h1>Panda</h1><h4>Supermarket</h4>' },
+      { coords:{lat:25.3420998,lng:49.6139416}, content:'<h1>Extra</h1>' },
+      { coords:{lat:25.3340100,lng:49.6149448}, content:'<h1>Sommar Caffee</h1>' },
+      { coords:{lat:25.3344367,lng:49.6131729}, content:'<h1>Little Wishes</h1>' },
+      { coords:{lat:25.3278104,lng:49.6152120}, content:'<h1>Code Caffee and Resturant</h1>' },
+      { coords:{lat:25.3350340,lng:49.6137941}, content:'<h1>iPhone Center</h1>' },
+      { coords:{lat:25.3315518,lng:49.6151993}, content:'<h1>Jarir Bookstore</h1>' }
+    ];
     function initMap(){
       // Map options
       var options = {
@@ -99,30 +128,19 @@
       }
 
       // New map
-      var map = new google.maps.Map(document.getElementById('map'), options);
-
-      // Array of markers
-      var locations = [
-        { coords:{lat:25.3431103,lng:49.6135413}, content:'<h1>Panda</h1><h4>Supermarket</h4>' },
-        { coords:{lat:25.3420998,lng:49.6139416}, content:'<h1>Extra</h1>' },
-        { coords:{lat:25.3340100,lng:49.6149448}, content:'<h1>Sommar Caffee</h1>' },
-        { coords:{lat:25.3344367,lng:49.6131729}, content:'<h1>Little Wishes</h1>' },
-        { coords:{lat:25.3278104,lng:49.6152120}, content:'<h1>Code Caffee and Resturant</h1>' },
-        { coords:{lat:25.3350340,lng:49.6137941}, content:'<h1>iPhone Center</h1>' },
-        { coords:{lat:25.3315518,lng:49.6151993}, content:'<h1>Jarir Bookstore</h1>' }
-      ];
+      map = new google.maps.Map(document.getElementById('map'), options);
 
       // Loop through markers
-      for(var i = 0;i < locations.length;i++){
+      for(var i = 0;i < markers.length;i++){
         // Add marker
-        addMarker(locations[i]);
+        addMarker(markers[i]);
       }
 
       // Add Marker Function
       function addMarker(props){
         var marker = new google.maps.Marker({
           position:props.coords,
-          map:map,
+          map:map
         });
 
         // Check content
@@ -135,7 +153,27 @@
           });
         } // if stat. closing
       } // addMarker func. closing
+
+      document.getElementById('show-listings').addEventListener('click', showListings);
+      document.getElementById('hide-listings').addEventListener('click', hideListings);
     } // initMap func. closing
+
+    // This function will loop through the markers array and display them all.
+    function showListings() {
+      var bounds = new google.maps.LatLngBounds();
+      // Extend the boundaries of the map for each marker and display the marker
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+        bounds.extend(markers[i].coords);
+      }
+      map.fitBounds(bounds);
+    }
+    // This function will loop through the listings and hide them all.
+    function hideListings() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+    }
   </script>
 
   <!--API KEY: AIzaSyBe3AFvkdHaIUPcA3F7VQmH6nCaLeGwO5o -->
