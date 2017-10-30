@@ -68,27 +68,17 @@
       border: 1px solid rgba(0,0,0,.125);
     }
   </style>
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-  <script async src="js/knockout-3.4.2.js"></script>
-  <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-  <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script>
-    window.onload = function() {
-      var content = "<li>Panda</li><li>Extra</li><li>Little Wishes</li><li>Code</li><li>Sommar</li><li>Jarir Bookstore</li><li>iPhone Center</li>";
-      document.getElementById('locations').innerHTML = content;
-      $('locations').listview().listview("refresh");
-    }
-  </script> -->
+
+  <script src="js/knockout-3.4.2.js"></script>
+  <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
 </head>
 <body>
   <!-- <h1>My Google Map</h1> -->
   <div class="nav">
     <h1>Almazrooe District</h1>
-    <input type="text" id="search" placeholder="Search . . .">
+   <!-- <input type="text" id="search" placeholder="Search . . .">-->
+
+   <input data-bind="textInput: myInput" placeholder="Search . . ."/>
     <hr>
     <!-- <ul data-role="listview" id="locations">
       <li class="location-item" onclick="">Panda</li>
@@ -105,7 +95,7 @@
   </div>
   <div id="map"></div>
 
-  <script async src="js/clean.js"></script>
+  <script src="js/clean.js"></script>
   <!--API KEY: AIzaSyBe3AFvkdHaIUPcA3F7VQmH6nCaLeGwO5o -->
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe3AFvkdHaIUPcA3F7VQmH6nCaLeGwO5o&callback=initMap">

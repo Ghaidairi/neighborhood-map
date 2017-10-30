@@ -4,20 +4,47 @@
 //   //this.imgAttribution = ko.observable();
 //   this.nickname = ko.observableArray(data.nickname);
 //   }
-function place(name) {
+function Place(name) {
     this.name = name;
 };
 
-var obj = {
-  names: ko.observableArray([new place('Panda'),
-new place('Extra'),
-new place('Sommar'),
-new place('Little Wishes'),
-new place('Code'),
-new place('Jareer'),
-new place('iPhone Center')])
+var viewModel = {
+  names: ko.observableArray([new Place('Panda'),
+new Place('Extra'),
+new Place('Sommar'),
+new Place('Little Wishes'),
+new Place('Code'),
+new Place('Jareer'),
+new Place('iPhone Center')]),
+
+search: function(value) {
+    // remove all the current places, which removes them from the view
+    viewModel.names.removeAll();
+
+    for(var x in viewModel.names) {
+      if(viewModel.names[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+        viewModel.names.push(viewModel.names[x]);
+      }
+    }
+  }
 };
-ko.applyBindings(obj);
+
+viewModel.myInput = ko.observable('');
+
+viewModel.runWhenSomethingChanges = ko.computed(function() {
+  console.log(viewModel.myInput());
+  viewModel.search(viewModel.myInput());
+
+
+  // https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
+  // Filtering an Array/ ko.utils.arrayFilter:
+  // http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+  // to search for sub strings https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
+  // to search for lower case https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase
+
+});
+
+ko.applyBindings(viewModel);
 
 var map;
 // Array of markers
@@ -40,6 +67,7 @@ function initMap(){
   // New map
   map = new google.maps.Map(document.getElementById('map'), options);
 
+  console.log(markers);
   // Loop through markers
   for(var i = 0;i < markers.length;i++){
     // Add marker
@@ -52,6 +80,8 @@ function initMap(){
       position:props.coords,
       map:map
     });
+
+    viewModel.names()[i].marker = marker;
 
     // Check content
     if(props.content){
