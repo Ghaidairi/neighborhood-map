@@ -6,7 +6,7 @@
 //   }
 function Place(name) {
     this.name = name;
-};
+}
 
 var viewModel = {
   names: ko.observableArray([new Place('Panda'),
@@ -62,7 +62,7 @@ function initMap(){
   var options = {
     zoom:14,
     center:{lat:25.3373780,lng:49.6137140}
-  }
+  };
 
   // New map
   map = new google.maps.Map(document.getElementById('map'), options);
