@@ -41,6 +41,9 @@ this.myInput = ko.observable('');
               return result;
         });
 
+        // for() {
+        //   marker.setMap(null);
+        // }
     }, this);
 
 
@@ -56,6 +59,7 @@ this.myInput = ko.observable('');
   // http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
   // to search for sub strings https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
   // to search for lower case https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase
+
 
 };
 
