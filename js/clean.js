@@ -8,8 +8,9 @@ function Place(name) {
     this.name = name;
 }
 
-var viewModel = {
-  names: ko.observableArray([new Place('Panda'),
+var viewModel = function(){
+  this.names = ko.observableArray([new Place('Panda'),
+
 new Place('Extra'),
 new Place('Sommar'),
 new Place('Little Wishes'),
@@ -17,23 +18,37 @@ new Place('Code'),
 new Place('Jareer'),
 new Place('iPhone Center')]),
 
-search: function(value) {
-    // remove all the current places, which removes them from the view
-    viewModel.names.removeAll();
+this.myInput = ko.observable('');
 
-    for(var x in viewModel.names) {
-      if(viewModel.names[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-        viewModel.names.push(viewModel.names[x]);
-      }
-    }
-  }
-};
+// search function(value) {
+//     // remove all the current places, which removes them from the view
+//     //viewModel.names.removeAll();
+//     console.log(value);
+//     for(var x in this.names) {
+//      if (typeof (this.names) != 'undefined') {if(this.names[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+//         this.names.push(this.names[x]);
+//       }}
+//     }
+//   }
+    this.filteredList = ko.computed(function() {
+      var filter = this.myInput().toLowerCase();
+        //console.log(filter);
 
-viewModel.myInput = ko.observable('');
 
-viewModel.runWhenSomethingChanges = ko.computed(function() {
-  console.log(viewModel.myInput());
-  viewModel.search(viewModel.myInput());
+          return ko.utils.arrayFilter(this.names(), function(item) {
+             var result =(item.name.toLowerCase().indexOf(filter) !== -1) ;
+             console.log(item);
+              return result;
+        });
+
+    }, this);
+
+
+// this.myInput = ko.observable('');
+// console.log(this.myInput());
+// this.runWhenSomethingChanges = ko.computed(function() {
+//   console.log(this.myInput());
+//   this.search(this.myInput());
 
 
   // https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
@@ -42,7 +57,7 @@ viewModel.runWhenSomethingChanges = ko.computed(function() {
   // to search for sub strings https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
   // to search for lower case https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase
 
-});
+};
 
 ko.applyBindings(viewModel);
 
@@ -81,16 +96,19 @@ function initMap(){
       map:map
     });
 
-    viewModel.names()[i].marker = marker;
+    this.names()[i].marker = marker;
 
     // Check content
     if(props.content){
+
       var infoWindow = new google.maps.InfoWindow({
         content:props.content
       });
+
       marker.addListener('click', function(){
         infoWindow.open(map, marker);
       });
     } // if stat. closing
   } // addMarker func. closing
+
 } // initMap func. closing

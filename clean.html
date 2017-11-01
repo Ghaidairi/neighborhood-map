@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>My Google Map</title>
-  <link src="css/stlyle.css"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <script src="js/knockout-3.4.2.js"></script>
   <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
 </head>
@@ -26,7 +26,7 @@
       <li class="location-item">Jarir Bookstore</li>
       <li class="location-item">iPhone Center</li>
     </ul> -->
-    <ul data-bind="foreach: names" id="locations">
+    <ul data-bind="foreach: filteredList" id="locations">
       <li data-bind="text: name"></li>
     </ul>
   </div>
