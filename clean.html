@@ -7,7 +7,9 @@
   <title>My Google Map</title>
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <script src="js/knockout-3.4.2.js"></script>
-  <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
   <!-- <h1>My Google Map</h1> -->
@@ -27,7 +29,7 @@
       <li class="location-item">iPhone Center</li>
     </ul> -->
     <ul data-bind="foreach: filteredList" id="locations">
-      <li data-bind="text: name"></li>
+      <li data-bind="text: name, click: $root.openWindow"></li>
     </ul>
 
   </div>
