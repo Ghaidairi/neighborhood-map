@@ -47,7 +47,7 @@ var ViewModel = function() {
      var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + this.names + '&format=json&callback=wikiCallback';
      var content;
      var title = markers.name;
-     var wikiLinks;
+     // var wikiLinks;
      $.ajax({
          url: wikiURL,
          dataType: 'jsonp',
@@ -62,7 +62,6 @@ var ViewModel = function() {
 
 
 var map;
-var wikiLink;
 // Array of markers
 var markers = [{
         coords: {
