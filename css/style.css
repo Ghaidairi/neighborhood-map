@@ -4,12 +4,10 @@
 html, body {
     height: 100%;
 }
-
 #wrapper,
 #page-content-wrapper {
  height: 100%;
 }
-
 div {
   display: block;
 }

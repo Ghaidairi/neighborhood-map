@@ -42,12 +42,10 @@ var ViewModel = function() {
     // this.runWhenSomethingChanges = ko.computed(function() {
     //   console.log(this.myInput());
     //   this.search(this.myInput());
-
-     // function to display the info from wikipedia
 };
 // end of viewModel
 
-
+// A function to get the data from wikipedia
 function getDataFromWiki(marker, infoWindow) {
     // ajax request to get info for current location
      var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
@@ -59,16 +57,12 @@ function getDataFromWiki(marker, infoWindow) {
          timeout: 1000
      }).done(function(data) {
          marker.content = '<h3>' + marker.title + '</h3>' + '<p>' + data[2][0] + '<a href=' + data[3][0] + ' target="blank"> Wikipedia</a></p>';
-
          infoWindow.setContent(marker.content);
          infoWindow.open(map, marker);
-
-
      }).fail(function(jqXHR, textStatus) {
          alert("failed to get wikipedia resources");
      });
 }
-
 
 var map;
 // Array of markers
@@ -90,11 +84,11 @@ var markers = [{
     },
     {
         coords: {
-            lat: 25.3340100,
-            lng: 49.6149448
+            lat: 25.334567,
+            lng: 49.6240838
         },
-        content: '<h4>Sommar Caffee</h4>',
-        name: 'Sommer Caffee'
+        content: '<h4>King Faisal University</h4>',
+        name: 'King Faisal University'
     },
     {
         coords: {
@@ -103,22 +97,6 @@ var markers = [{
         },
         content: '<h4>Little Wishes</h4>',
         name: 'Little Wishes'
-    },
-    {
-        coords: {
-            lat: 25.3278104,
-            lng: 49.6152120
-        },
-        content: '<h4>Code Caffee and Resturant</h4>',
-        name: 'Code Caffee and Resturant'
-    },
-    {
-        coords: {
-            lat: 25.3350340,
-            lng: 49.6137941
-        },
-        content: '<h4>iPhone Center</h4>',
-        name: 'iPhone Center'
     },
     {
         coords: {
@@ -180,3 +158,8 @@ function initMap() {
         } // if stat. closing
     } // addMarker func. closing
 } // initMap func. closing
+
+// Graceful failing of google maps
+function googleError() {
+  alert('Google Maps could not be loaded !');
+}

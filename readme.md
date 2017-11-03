@@ -17,3 +17,6 @@ This project is a single page application featuring a map of Almazroe neighborho
 2. Google Maps Javascript API
 3. jQuery
 4. Wikipedia API
+
+__________________________________________________
+*IMPORTANT: I am Giving credit to https://startbootstrap.com/template-overviews/simple-sidebar/.
