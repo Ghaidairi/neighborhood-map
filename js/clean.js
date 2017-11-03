@@ -47,7 +47,6 @@ var ViewModel = function() {
      var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + this.names + '&format=json&callback=wikiCallback';
      var content;
      var title = markers.name;
-     // var wikiLinks;
      $.ajax({
          url: wikiURL,
          dataType: 'jsonp',
@@ -57,6 +56,8 @@ var ViewModel = function() {
      }).fail(function(jqXHR, textStatus) {
          alert("failed to get wikipedia resources");
      });
+
+     // function to display the info from wikipedia
 };
 // end of viewModel
 
