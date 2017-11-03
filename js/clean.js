@@ -14,7 +14,7 @@ var ViewModel = function() {
     this.names = ko.observableArray(markers);
     self.openWindow = function(location) {
         google.maps.event.trigger(location.marker, 'click');
-    }
+    };
 
     this.myInput = ko.observable('');
 
@@ -35,7 +35,7 @@ var ViewModel = function() {
 
         return ko.utils.arrayFilter(this.names(), function(item) {
             var result = (item.name.toLowerCase().indexOf(filter) !== -1);
-            item.marker.setVisible(result)
+            item.marker.setVisible(result);
             return result;
         });
 
