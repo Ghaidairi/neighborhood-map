@@ -126,6 +126,7 @@ var markers = [{
 function initMap() {
     // Map options
     var options = {
+        title: markers.name,
         zoom: 15,
         center: {
             lat: 25.3373780,
@@ -157,7 +158,7 @@ function initMap() {
 
 
         // ajax request saeed
-        var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + markers.name + '&format=json&callback=wikiCallback';
+        var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
 
         $.ajax({
             url: wikiURL + self.myInput,
