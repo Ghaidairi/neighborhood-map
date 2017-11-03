@@ -148,7 +148,7 @@ function initMap() {
             });
             marker.addListener('click', function() {
                 var marker = this;
-                getDataFromWiki(marker, infoWindow)
+                getDataFromWiki(marker, infoWindow);
                 this.setAnimation(google.maps.Animation.BOUNCE);
                 setTimeout(function() {
                     marker.setAnimation(null);
