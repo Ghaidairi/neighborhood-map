@@ -43,8 +43,14 @@ var ViewModel = function() {
     //   console.log(this.myInput());
     //   this.search(this.myInput());
 
+     // function to display the info from wikipedia
+};
+// end of viewModel
+
+
+function getDataFromWiki(marker, infoWindow) {
     // ajax request to get info for current location
-     var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + this.names + '&format=json&callback=wikiCallback';
+     var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
      var content;
      var title = markers.name;
      $.ajax({
@@ -52,14 +58,16 @@ var ViewModel = function() {
          dataType: 'jsonp',
          timeout: 1000
      }).done(function(data) {
-         this.content += '<h3>' + this.names + '</h3>' + '<p>' + data[2][0] + '<a href=' + data[3][0] + ' target="blank"> Wikipedia</a></p>';
+         marker.content = '<h3>' + marker.title + '</h3>' + '<p>' + data[2][0] + '<a href=' + data[3][0] + ' target="blank"> Wikipedia</a></p>';
+
+         infoWindow.setContent(marker.content);
+         infoWindow.open(map, marker);
+
+
      }).fail(function(jqXHR, textStatus) {
          alert("failed to get wikipedia resources");
      });
-
-     // function to display the info from wikipedia
-};
-// end of viewModel
+}
 
 
 var map;
@@ -150,6 +158,7 @@ function initMap() {
     function addMarker(props) {
         var marker = new google.maps.Marker({
             position: props.coords,
+            title: props.name,
             map: map
         });
         ///this.names()[i].marker = marker;
@@ -161,7 +170,7 @@ function initMap() {
             });
             marker.addListener('click', function() {
                 var marker = this;
-                infoWindow.open(map, marker);
+                getDataFromWiki(marker, infoWindow)
                 this.setAnimation(google.maps.Animation.BOUNCE);
                 setTimeout(function() {
                     marker.setAnimation(null);

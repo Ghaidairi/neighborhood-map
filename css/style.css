@@ -1,14 +1,15 @@
 #map{
-  bottom:0px;
   height: 100%;
-  left: 362px;
-  position: absolute;
-  right: 0px;
 }
 html, body {
     height: 100%;
-    position: relative;
 }
+
+#wrapper,
+#page-content-wrapper {
+ height: 100%;
+}
+
 div {
   display: block;
 }
